@@ -14,8 +14,8 @@
  */
 
 class Node {
-  constructor(val) {
-    this.val = val;
+  constructor(value) {
+    this.value = value;
     this.next = null;
   }
 }
@@ -26,58 +26,77 @@ class SinglyLinkedList {
     this.tail = null;
     this.length = 0;
   }
-  push(val) {
-    const newNode = new Node(val);
-    if (!this.length) {
+  //Method to add to end of Linked List
+  push(value) {
+    const newNode = new Node(value);
+    // If the LL is empty
+    if (!this.head) {
       this.head = newNode;
       this.tail = newNode;
-      this.length++;
     } else {
-      // 1)  the old tail's next will be the new node
+      // If the LL has a node, set current tail's next to the new node
       this.tail.next = newNode;
-      // 2) make the new node the new tail pointer
+      // Update the tail pointer to newNode
       this.tail = newNode;
-      // 3) Increment length
-      this.length++;
     }
-    return this;
+    this.length++;
+    return newNode;
   }
+  // Method to traverse through the entire Linked List
   traverse() {
+    // If the linked list is empty
+    if (!this.head) {
+      return undefined;
+    }
+    // If the linked list has node(s)
     let current = this.head;
+    //Begin traversing while there is still nodes
     while (current) {
-      console.log(current);
-
-      if (!current.next) {
-        console.log("the last val is " + current.val);
-        return current.val.val;
-      }
-      current = current.next;
+      console.log(current.value); // Print the value of the node
+      current = current.next; // proceed along the linked list
     }
   }
+  // Method to remove the last element in a linked list
   pop() {
-    /** 1) If there is no length, return undefined
-     *  2) Otherwise, remove the current tail, set it to null
-     *  3) Traverse till we reach the new end, make it the tail
-     *  4) Decrease the length of the list
-     *  5) Return the list with the item popped off
-     */
-    if (!this.head) return undefined;
-    if (this.length === 1) {
-      this.head = null;
-      this.tail = null;
-    } else {
-      this.tail = null;
-      let current = this.head;
-      // Get the second last node (current)
-      while (current.next.next) {
-        current = current.next;
-      }
-      // Set the second last node's next to null (making it the new tail)
-      current.next = null;
-      this.tail = current;
+    // If there is no nodes in the link list
+    if (!this.head) {
+      return this;
     }
     this.length--;
-    return this;
+    // Single node case
+    if (this.length === 0) {
+      this.head = null;
+      this.tail = null;
+      return this;
+    }
+    // Case where this is more than one node in the linked list
+    let current = this.head;
+    let previous = current;
+    //Traverse and find the 2nd to last element in the linked list
+    while (current.next) {
+      previous = current; // Gets 2nd to last element
+      current = current.next; // Gets the last element
+    }
+    // Set the tail to the second to last element in the linked list
+    this.tail = previous;
+    return current;
+  }
+  //Method to remove the first node in the linked list
+  shift() {
+    if (!this.head) {
+      return undefined;
+    }
+    this.length--;
+    // Single node case
+    if (this.length === 0) {
+      this.head = null;
+      this.tail = null;
+      return this;
+    }
+    const removedHead = this.head;
+    // move the head pointer to the next node
+    this.head = this.head.next;
+    return removedHead;
   }
 }
 
@@ -85,4 +104,13 @@ const list = new SinglyLinkedList();
 list.push(1);
 list.push(2);
 list.push(3);
-list.pop();
+// list.push(4);
+// list.push(5);
+
+// console.log(1, list.pop());
+// console.log(2, list.pop());
+// console.log(3, list.pop());
+list.shift();
+list.shift();
+list.shift();
+console.log(list);
