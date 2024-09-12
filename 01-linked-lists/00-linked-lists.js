@@ -98,7 +98,61 @@ class SinglyLinkedList {
     this.head = this.head.next;
     return removedHead;
   }
+
+  // Method to insert at the beginning of the linked list
+  unshift(value) {
+    const newNode = new Node(value);
+    this.length++;
+    // Case where this are no elements in the linked list
+
+    if (!this.head) {
+      this.head = newNode;
+      this.tail = newNode;
+      return;
+    }
+    const currentHead = this.head;
+    this.head = newNode;
+    this.head.next = currentHead
+    return this.head;
+  }
+  // Method to get node at specific index
+  get(index) {
+    // debugger;
+    if (index < 0 || index >= this.length) return undefined;
+    let i = 0;
+    let current = this.head;
+    while (current) {
+      if (i === index) {
+        // return node at specific index
+        return current;
+      }
+      i++;
+      current = current.next;
+    }
+    return undefined;
+  }
+  // Method to insert a value at a given index
+  insert(index, val) {
+    //Case for invalid index
+    if (index < 0 || index > this.length) return false;
+    // Case for adding in the back
+    if (index === this.length) return this.push(val)
+    // Case for adding in the front
+    if (index === 0) return this.unshift(val)
+    // Case for adding at specific index
+    // get the node before specified index, & make its next the new node.
+    // get the node after the specified index
+    // -> make the newNode's next point to it
+    const newNode = new Node(val);
+    this.length++
+    const prevNode = this.get(index - 1)
+    const nextNode = this.get(index)
+    prevNode.next = newNode;
+    newNode.next = nextNode;
+  }
+
 }
+
 
 const list = new SinglyLinkedList();
 list.push(1);
@@ -110,7 +164,8 @@ list.push(3);
 // console.log(1, list.pop());
 // console.log(2, list.pop());
 // console.log(3, list.pop());
-list.shift();
-list.shift();
-list.shift();
-console.log(list);
+// list.shift();
+// list.shift();
+// list.shift();
+console.log(list.insert(1, "z"));
+list.traverse();
