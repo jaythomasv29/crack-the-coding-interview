@@ -1,6 +1,5 @@
 // helper to combine two sorted arrays into 1
-function combineArray(arr1, arr2) {
-  debugger;
+function merge(arr1, arr2) {
   const result = [];
   let idx1 = 0;
   let idx2 = 0;
@@ -31,6 +30,14 @@ function combineArray(arr1, arr2) {
   }
   return result;
 }
-const arr1 = [1, 2];
-const arr2 = [3, 4];
-console.log(combineArray(arr1, arr2));
+
+function mergeSort(arr) {
+  if (arr.length <= 1) return arr;
+  const firstHalf = arr.slice(0, Math.floor(arr.length / 2));
+  const secondHalf = arr.slice(Math.floor(arr.length / 2));
+  mergeSort(firstHalf);
+  mergeSort(secondHalf);
+  return merge(firstHalf, secondHalf);
+}
+const arr = [10, 24, 76, 73];
+console.log(mergeSort(arr));
