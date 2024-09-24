@@ -9,16 +9,17 @@ function insertionSortEx(arr) {
             // Shift the element at j one position to the right
             arr[j + 1] = arr[j];
             j--; // Move to the previous element
-            console.log({ current, j, arr })
+            console.log({ arr })
         }
 
         // 3. Insert the current element in its correct position
         arr[j + 1] = current;
+        console.log(arr)
     }
 
     return arr;
 }
-const unsortedArray1 = [5, 4, 1];
+const unsortedArray1 = [4, 5, 1];
 // const unsortedArray1 = [1, 4];
 
 
